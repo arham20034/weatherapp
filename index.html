@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body style="background-color:rgb(236, 200, 200);"></body>
+
+<style>
+    h1 {
+        color: rgb(7, 70, 243);
+    }
+
+    h2 {
+        color: rgb(40, 147, 218);
+    }
+
+    h3 {
+        color: rgb(107, 43, 226);
+    }
+
+    h4 {
+        color: rgb(183, 0, 255)
+    }
+
+    h5 {
+        color: rgb(97, 76, 175)
+    }
+
+    h6 {
+        color: rgb(19, 90, 31);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    h5 {
+        text-align: center;
+    }
+
+    h6 {
+        text-align: center;
+    }
+
+    .container {
+        text-align: center;
+    }
+</style>
+
+<h1>WEATHER INFORMATION</h1>
+<h2>ENTER CITY NAME</h2>
+
+<div class="container">
+    <input type="text" id="cityName">
+    <br>
+    <button onclick="greet()">HELP</button>
+</div>
+<h1>PRECAUTIONS</h1>
+<h2 id="result"></h2>
+
+<h1>TEMPERATURE</h1>
+<h2 id="result4"></h2>
+
+<h1>MINIMUM TEMPERATURE</h1>
+<h2 id="result2"></h2>
+
+<h1>MAXIMUM TEMPERATURE</h1>
+<h2 id="result3"></h2>
+
+<script>
+    function greet() {
+
+        let cityName = document.getElementById("cityName").value
+        var result = document.getElementById("result");
+
+
+
+
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=0fc11432fae979fc9613a880dfa8a61c&units=metric`)
+            .then(function (response) {
+                let weatherData = response.data
+                result.innerText = "weatherData"
+
+                var temp = Number(weatherData?.main?.temp)
+                var minTemp = Number(weatherData?.main?.temp_min)
+                var maxTemp = Number(weatherData?.main?.temp_max)
+
+
+                if (temp >= -40 && temp <= 10 || minTemp <= 10) {
+                    result.innerText = "DON'T GO OUTSIDE IT'S TOO COLD & ON THE HEATERS"
+
+                } else if (temp > 10 && temp <= 20 || minTemp > 10 && minTemp <= 20) {
+                    result.innerText = "WEAR A LEATHER JACKET & DRINK COFFEE & STAY WARM"
+                } else if (temp > 20 && temp <= 30 || minTemp <= 30) {
+                    result.innerText = "WEAR A COAT & DRINK COFFEE & STAY WARM"
+                } else if (temp > 30 && temp <= 40 || minTemp <= 35) {
+                    result.innerText = "WEAR A CAP & AND DRINK WATER "
+                } else if (temp > 40 || maxTemp > 40) {
+                    result.innerText = "DON'T GO OUTSIDE IT'S TOO HOT"
+                }
+
+
+
+                result2.innerText = minTemp
+                result3.innerText = maxTemp
+                 result4.innerText = temp
+                
+
+            })
+            .catch(function (errror) {
+
+                result.innerText(error)
+
+            })
+
+    }
+</script>
+
+
+
+</body>
+
+</html>
